@@ -5,3 +5,6 @@ log/*
 *~
 .DS_Store
 *.tmproj
+db/webistrano_development
+db/webistrano_test
+db/webistrano_production

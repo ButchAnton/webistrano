@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090319185505) do
+ActiveRecord::Schema.define(:version => 20091021092758) do
 
   create_table "configuration_parameters", :force => true do |t|
     t.string   "name"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20090319185505) do
     t.text     "alert_emails"
     t.integer  "locked_by_deployment_id"
     t.integer  "locked",                  :default => 0
+    t.boolean  "notify_campfire",         :default => false
   end
 
   create_table "users", :force => true do |t|

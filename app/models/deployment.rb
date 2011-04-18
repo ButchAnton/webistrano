@@ -110,16 +110,19 @@ class Deployment < ActiveRecord::Base
   def complete_with_error!
     save_completed_status!(STATUS_FAILED)
     notify_per_mail
+    notify_campfire
   end
   
   def complete_successfully!
     save_completed_status!(STATUS_SUCCESS)
     notify_per_mail
+    notify_campfire
   end
   
   def complete_canceled!
     save_completed_status!(STATUS_CANCELED)
     notify_per_mail
+    notify_campfire
   end
   
   # deploy through Webistrano::Deployer in background (== other process)
@@ -218,4 +221,18 @@ class Deployment < ActiveRecord::Base
       Notification.deliver_deployment(self, email)
     end
   end
+  
+  def notify_campfire
+    return unless WebistranoConfig[:campfire][:enabled] and stage.notify_campfire?
+    
+    config = WebistranoConfig[:campfire][:config]
+    campfire = Tinder::Campfire.new(config[:subdomain], :ssl => config[:ssl])
+    campfire.login config[:email], config[:pass]
+    room = campfire.find_room_by_name config[:room]
+    room.speak "Deploying #{stage.project.name}/#{stage.name} to ..."
+    room.paste deploy_to_hosts.join("\n")
+    room.speak "Completed: #{status}"
+    room.paste log.gsub('\n', "\n") if success?
+  end
+
 end

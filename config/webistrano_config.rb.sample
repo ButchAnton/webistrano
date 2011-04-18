@@ -23,6 +23,18 @@ WebistranoConfig = {
     #:authentication  => :login
   },
   
+  # Campfire settings
+  :campfire => {
+    :enabled => false,
+    :config => { 
+      :subdomain => 'mydomain',
+      :email => 'webistrano@mydomain.com',
+      :pass => 'mypass',
+      :room => 'MyRoom',
+      :ssl => true
+    }
+  },
+  
   # Sender address for Webistrano emails
   :webistrano_sender_address => "webistrano@example.com",
   

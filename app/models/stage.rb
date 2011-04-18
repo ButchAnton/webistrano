@@ -12,7 +12,7 @@ class Stage < ActiveRecord::Base
   validates_presence_of :project, :name
   validates_inclusion_of :locked, :in => [0,1]
   
-  attr_accessible :name, :alert_emails
+  attr_accessible :name, :alert_emails, :notify_campfire
 
   # fake attr (Hash) that hold info why deployment is not possible
   # (think model.errors lite)

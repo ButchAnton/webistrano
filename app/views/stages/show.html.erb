@@ -33,6 +33,12 @@
 		  <b>Alert on deploy:</b>
 		  <%=h @stage.alert_emails %>
 		</p>
+		<%- if WebistranoConfig[:campfire][:enabled] -%>
+		<p>
+		  <b>Campfire message on deploy:</b>
+		  <%=h @stage.notify_campfire %>
+		</p>
+		<%- end -%>
 		<p>
 		  <b>#Hosts:</b>
 		  <%=h @stage.hosts.count %>

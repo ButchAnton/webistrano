@@ -18,14 +18,14 @@ class NotificationTest < ActiveSupport::TestCase
 
   def test_sender_address
     Notification.webistrano_sender_address = "FooBar"
-    
+
     stage = create_new_stage
     role = create_new_role(:stage => stage, :name => 'app')
     assert stage.deployment_possible?, stage.deployment_problems.inspect
     deployment = create_new_deployment(:stage => stage, :task => 'deploy')
-    
+
     mail = Notification.create_deployment(deployment, 'foo@bar.com')
-    
+
     assert_equal ['FooBar'], mail.from
     assert_equal ['foo@bar.com'], mail.to
   end

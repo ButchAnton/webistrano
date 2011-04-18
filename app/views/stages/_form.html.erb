@@ -7,3 +7,8 @@
   <b>Alert these emails on deploy</b> (separated by space)<br />
   <%= text_field 'stage', :alert_emails, :style =>'width:330px' %>
 </p>
+<%- if WebistranoConfig[:campfire][:enabled] -%>
+<p>
+  <%= check_box 'stage', :notify_campfire %><label for="stage_notify_campfire"><b>Send a Campfire message on deploy</b></label><br />
+</p>
+<%- end -%>
